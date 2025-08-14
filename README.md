@@ -1,12 +1,11 @@
-# React + Vite
+# Tenzi Game (React)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple dice-matching game built with React.  
+Click tiles to hold their values, and roll the unheld tiles until all values match.
 
-Currently, two official plugins are available:
+## How to Play
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Click on tiles to toggle **hold** (turns red when held).
+- Press **Get New Tiles** to roll the unheld tiles.
+- When all tiles show the same value and are held, **you win!**
+- Click **New Game** to restart.

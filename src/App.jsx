@@ -1,35 +1,79 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const generateTiles = () => {
+    const tilesArray = [];
+    for (let i = 0; i < 10; i++) {
+      const randNum = Math.floor(Math.random() * 10) + 1;
+      tilesArray.push({
+        id: i,
+        value: randNum,
+        onHold: false,
+      });
+    }
+    return tilesArray;
+  };
+
+  const [gameOver, setGameOver] = useState(false);
+  const [tiles, setTiles] = useState(() => generateTiles());
+
+  useEffect(() => {
+    checkGameOver();
+  }, [tiles]);
+
+  function toggle(id) {
+    setTiles((prev) =>
+      prev.map((tile) =>
+        tile.id === id ? { ...tile, onHold: !tile.onHold } : tile
+      )
+    );
+  }
+
+  function getNewTiles() {
+    setTiles((prev) =>
+      prev.map((tile) =>
+        tile.onHold === false
+          ? { ...tile, value: Math.floor(Math.random() * 10) + 1 }
+          : tile
+      )
+    );
+  }
+
+  function checkGameOver() {
+    if (tiles.every((tile) => tile.value === tiles[0].value && tile.onHold)) {
+      setGameOver(true);
+    } else {
+      setGameOver(false);
+    }
+  }
+
+  function newGame() {
+    setGameOver(false);
+    setTiles(generateTiles());
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      {gameOver && <h1 style={{ textAlign: "center" }}>You win!</h1>}
+      <br />
+      <div className="container">
+        {tiles.map((tile) => (
+          <button
+            key={tile.id}
+            style={{ backgroundColor: tile.onHold ? "red" : "" }}
+            onClick={() => toggle(tile.id)}
+            disabled={gameOver}
+          >
+            {tile.value}
+          </button>
+        ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <br />
+      <button onClick={getNewTiles} disabled={gameOver}>
+        Get New Tiles
+      </button>
+      <br />
+      {gameOver && <button onClick={newGame}>New Game</button>}
     </>
-  )
+  );
 }
-
-export default App

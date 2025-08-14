@@ -1,0 +1,37 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div.container {
+  display: flex;
+  flex-wrap: wrap; /* Ensures the buttons wrap to the next line */
+  gap: 5px;
+  width: calc(
+    40px * 5 + 20px
+  ); /* Total width for 5 buttons + gaps (5 buttons * 40px + 4 gaps of 2px) */
+}
+
+div.container > button {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+div.container > button:hover {
+  background-color: pink;
+}
+
+h1 {
+  font-size: 1.5rem;
+}
